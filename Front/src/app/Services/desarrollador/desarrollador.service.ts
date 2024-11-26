@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +21,16 @@ export class DesarrolladorService {
 
   getDesarrolladores(): Observable<any[]> {
     return this.http.get<any[]>(this.DESARROLLADORES_URL);
+  }
+
+  getFilteredDesarrolladores(ids: any): Observable<any[]> {
+    return this.http.get<any[]>(this.DESARROLLADORES_URL).pipe(
+      map((desarrolladores: any) => {
+        return desarrolladores.filter(
+          (desarrollador: any) => !ids.has(desarrollador.id)
+        );
+      })
+    );
   }
 
   deleteDesarrollador(id: number): Observable<any> {
