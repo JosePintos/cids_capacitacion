@@ -1,16 +1,16 @@
 import { Request, Response, Router } from "express";
 import { RolService } from "../service/RolService";
 
-// const createRol = async (req: Request, res: Response): Promise<Response> => {
-//   try {
-//     const rolData = req.body;
-//     const newRol = await rolService.createRol(rolData);
+const createRol = async (req: Request, res: Response): Promise<Response> => {
+  try {
+    const rolData = req.body;
+    const newRol = await RolService.createRol(rolData);
 
-//     return res.status(200).json(newRol);
-//   } catch (error) {
-//     return res.status(500).json({ message: error.message });
-//   }
-// };
+    return res.status(200).json(newRol);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
 
 const getAllRoles = async (req: Request, res: Response): Promise<Response> => {
   try {
@@ -44,4 +44,5 @@ const getRolById = async (req: Request, res: Response): Promise<Response> => {
 export const RolController = {
   getRolById,
   getAllRoles,
+  createRol,
 };

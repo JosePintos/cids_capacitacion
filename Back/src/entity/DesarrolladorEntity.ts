@@ -42,8 +42,8 @@ export class DesarrolladorEntity implements Desarrollador {
   @ManyToMany(() => ProyectoEntity, (proyecto) => proyecto.desarrolladores)
   @JoinTable({
     name: "desarrollador_x_proyecto",
-    joinColumn: { name: "id_proyecto", referencedColumnName: "id" },
-    inverseJoinColumn: { name: "id_desarrollador", referencedColumnName: "id" },
+    joinColumn: { name: "id_desarrollador", referencedColumnName: "id" },
+    inverseJoinColumn: { name: "id_proyecto", referencedColumnName: "id" },
   })
   proyectos: ProyectoEntity[];
 

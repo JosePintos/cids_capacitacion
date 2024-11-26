@@ -1,11 +1,17 @@
 import { Desarrollador } from "../model/Desarrollador";
+import { GetDesarrolladorDTO } from "./DesarrolladorDTO";
 
 export type CreateProyectoDTO = {
   nombre: string;
   descripcion: string;
   fechaInicio: Date;
   fechaFin: Date;
-  responsable: Desarrollador;
+  responsable:
+    | number
+    | Omit<
+        Desarrollador,
+        "id" | "proyectosResponsable" | "proyectos" | "tareas"
+      >;
 };
 
 export type GetProyectoDTO = {
@@ -14,7 +20,7 @@ export type GetProyectoDTO = {
   descripcion: string;
   fechaInicio: Date;
   fechaFin: Date;
-  responsable: Desarrollador;
+  responsable: GetDesarrolladorDTO;
   fechaCreacion?: Date;
   fechaActualizacion?: Date;
 };
@@ -24,5 +30,10 @@ export type UpdateProyectoDTO = {
   descripcion?: string;
   fechaInicio?: Date;
   fechaFin?: Date;
-  responsable?: Desarrollador;
+  responsable?:
+    | number
+    | Omit<
+        Desarrollador,
+        "id" | "proyectosResponsable" | "proyectos" | "tareas"
+      >;
 };

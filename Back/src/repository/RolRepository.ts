@@ -1,8 +1,16 @@
 import dataSource from "../data-source";
-import { GetRolDTO } from "../dto/RolDTO";
+import { CreateRolDTO, GetRolDTO } from "../dto/RolDTO";
 import { RolEntity } from "../entity/RolEntity";
 
 const _rolRepository = dataSource.getRepository(RolEntity);
+
+const createRol = async (payload: CreateRolDTO): Promise<GetRolDTO> => {
+  try {
+    return await _rolRepository.save(payload);
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+};
 
 const getRoles = async (): Promise<GetRolDTO[]> => {
   try {
@@ -23,4 +31,5 @@ const getRolById = async (id: number): Promise<GetRolDTO | null> => {
 export const RolRepository = {
   getRoles,
   getRolById,
+  createRol,
 };

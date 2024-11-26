@@ -24,7 +24,7 @@ const dataSource = new DataSource({
     rejectUnauthorized: false,
   },
   synchronize: false,
-  logging: true,
+  logging: false,
 });
 
 export default dataSource;

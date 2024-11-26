@@ -22,13 +22,13 @@ const getDesarrolladores = async (
   res: Response
 ): Promise<Response> => {
   try {
-    const { rolId } = req.query;
-    if (rolId) {
-      console.log(rolId);
-      const desarrolladores =
-        await DesarrolladorService.getAllDesarrolladoresByRol(Number(rolId));
-      return res.status(200).json(desarrolladores);
-    }
+    // const { rolId } = req.query;
+    // if (rolId) {
+    //   console.log(rolId);
+    //   const desarrolladores =
+    //     await DesarrolladorService.getAllDesarrolladoresByRol(Number(rolId));
+    //   return res.status(200).json(desarrolladores);
+    // }
     const desarrolladores = await DesarrolladorService.getAllDesarrolladores();
     return res.status(200).json(desarrolladores);
   } catch (error) {

@@ -19,6 +19,12 @@ const createDesarrollador = async (
   newDevParams: CreateDesarrolladorDTO
 ): Promise<GetDesarrolladorDTO> => {
   try {
+    const rol = await RolService.getRolById(newDevParams.rol.id);
+
+    if (!rol) {
+      throw new Error("Rol not found");
+    }
+
     return await DesarrolladorRepository.createDesarrollador(newDevParams);
   } catch (error) {
     console.error("Error creating desarrollador:", error);
@@ -34,6 +40,17 @@ const getDesarrolladorById = async (
   } catch (error) {
     console.error("Error fetching desarrollador:", error);
     throw new Error("Could not fetch desarrollador");
+  }
+};
+
+const getDesarrolladoresByIds = async (
+  ids: number[]
+): Promise<GetDesarrolladorDTO[]> => {
+  try {
+    return await DesarrolladorRepository.getDesarrolladoresByIds(ids);
+  } catch (error) {
+    console.error("Error fetching desarrolladores:", error);
+    throw new Error("Could not fetch desarrolladores");
   }
 };
 
@@ -68,8 +85,15 @@ const deleteDesarrollador = async (devId: number): Promise<void> => {
 const updateDesarrollador = async (
   devId: number,
   updateDev: UpdateDesarrolladorDTO
-): Promise<GetDesarrolladorDTO> => {
+): Promise<Desarrollador> => {
   try {
+    if (updateDev.rol) {
+      const rol = await RolService.getRolById(updateDev.rol.id);
+
+      if (!rol) {
+        throw new Error("Rol not found");
+      }
+    }
     const updated = await DesarrolladorRepository.updateDesarrollador(
       devId,
       updateDev
@@ -91,4 +115,5 @@ export const DesarrolladorService = {
   getDesarrolladorById,
   deleteDesarrollador,
   updateDesarrollador,
+  getDesarrolladoresByIds,
 };

@@ -9,9 +9,14 @@ export type CreateTareaDTO = {
   titulo: string;
   descripcion: string;
   fechaLimite: Date;
-  asignado: Desarrollador;
-  proyecto: Proyecto;
-  estado: Estado;
+  asignado:
+    | number
+    | Omit<
+        Desarrollador,
+        "id" | "proyectosResponsable" | "proyectos" | "tareas"
+      >;
+  proyecto: number | Omit<GetProyectoDTO, "desarrolladores" | "tareas">;
+  estado: number | Estado;
 };
 
 export type UpdateTareaDTO = {

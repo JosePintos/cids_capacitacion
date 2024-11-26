@@ -1,3 +1,4 @@
+import { In } from "typeorm";
 import dataSource from "../data-source";
 import {
   CreateDesarrolladorDTO,
@@ -30,6 +31,24 @@ const getDesarrolladorById = async (
   try {
     return await _desarrolladorRepo.findOne({
       where: { id },
+      relations: {
+        rol: true,
+        proyectosResponsable: true,
+        proyectos: true,
+        tareas: true,
+      },
+    });
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+const getDesarrolladoresByIds = async (
+  ids: number[]
+): Promise<DesarrolladorEntity[]> => {
+  try {
+    return await _desarrolladorRepo.find({
+      where: { id: In(ids) },
       relations: {
         rol: true,
         proyectosResponsable: true,
@@ -82,7 +101,7 @@ const deleteDesarrollador = async (id: number): Promise<void> => {
 const updateDesarrollador = async (
   id: number,
   payload: UpdateDesarrolladorDTO
-): Promise<GetDesarrolladorDTO | null> => {
+): Promise<Desarrollador | null> => {
   try {
     const desarrollador = await _desarrolladorRepo.findOne({
       where: { id },
@@ -113,4 +132,5 @@ export const DesarrolladorRepository = {
   getDesarrolladoresByRol,
   deleteDesarrollador,
   updateDesarrollador,
+  getDesarrolladoresByIds,
 };

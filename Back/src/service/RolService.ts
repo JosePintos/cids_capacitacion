@@ -4,6 +4,15 @@ import { RolEntity } from "../entity/RolEntity";
 import { Rol } from "../model/Rol";
 import { RolRepository } from "../repository/RolRepository";
 
+const createRol = async (rolData: CreateRolDTO): Promise<GetRolDTO> => {
+  try {
+    return await RolRepository.createRol(rolData);
+  } catch (error) {
+    console.error("Error fetching roles:", error);
+    throw new Error("Could not fetch roles");
+  }
+};
+
 const getRolById = async (id: number): Promise<GetRolDTO | null> => {
   try {
     return await RolRepository.getRolById(id);
@@ -96,4 +105,5 @@ const getAllRoles = async (): Promise<GetRolDTO[] | []> => {
 export const RolService = {
   getRolById,
   getAllRoles,
+  createRol,
 };
