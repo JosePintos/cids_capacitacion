@@ -105,12 +105,12 @@ export class DesarrolladoresComponent implements OnChanges, AfterViewInit {
   private refreshData(): void {
     this.desarrolladores$.subscribe({
       next: (desarrolladores) => {
-        const data = desarrolladores.map((des) => ({
+        const data = desarrolladores?.map((des) => ({
           id: des.id,
-          nombre: des.nombre,
-          correo: des.correo,
-          fecha: des.fechaContratacion,
-          rol: des.rol.nombre,
+          nombre: des.nombre ? des.nombre : '',
+          correo: des.correo ? des.correo : '',
+          fecha: des.fechaContratacion ? des.fechaContratacion : '',
+          rol: des.rol?.nombre ? des.rol : '',
         }));
         this.dataSource.data = data;
         this.dataSource.sort = this.sort;

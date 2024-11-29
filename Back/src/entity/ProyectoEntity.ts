@@ -39,7 +39,8 @@ export class ProyectoEntity implements Proyecto {
 
   @ManyToOne(
     () => DesarrolladorEntity,
-    (desarrollador) => desarrollador.proyectosResponsable
+    (desarrollador) => desarrollador.proyectosResponsable,
+    { onDelete: "CASCADE" }
   )
   @JoinColumn({ name: "id_responsable" })
   responsable: DesarrolladorEntity;

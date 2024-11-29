@@ -2,8 +2,10 @@ import express, { Express, json, Response, Request } from "express";
 import { ROUTES } from "./routes";
 import cors from "cors";
 import "reflect-metadata";
+import dotenv from "dotenv";
+dotenv.config();
 
-const PORT = 3000;
+const PORT = process.env.PORT ?? 3000;
 
 const app: Express = express();
 

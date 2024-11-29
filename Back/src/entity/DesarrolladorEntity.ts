@@ -26,7 +26,9 @@ export class DesarrolladorEntity implements Desarrollador {
   @Column()
   correo: string;
 
-  @ManyToOne(() => RolEntity, (rol) => rol.desarrollador)
+  @ManyToOne(() => RolEntity, (rol) => rol.desarrollador, {
+    onDelete: "CASCADE",
+  })
   @JoinColumn({ name: "id_rol" })
   rol: RolEntity;
 
