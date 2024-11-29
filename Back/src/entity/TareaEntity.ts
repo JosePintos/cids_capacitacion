@@ -32,15 +32,23 @@ export class TareaEntity implements Tarea {
   @UpdateDateColumn({ name: "fecha_actualizacion" })
   fechaActualizacion: Date;
 
-  @ManyToOne(() => DesarrolladorEntity, (desarrollador) => desarrollador.tareas)
+  @ManyToOne(
+    () => DesarrolladorEntity,
+    (desarrollador) => desarrollador.tareas,
+    { onDelete: "CASCADE" }
+  )
   @JoinColumn({ name: "id_asignado" })
   asignado: DesarrolladorEntity;
 
-  @ManyToOne(() => ProyectoEntity, (proyecto) => proyecto.tareas)
+  @ManyToOne(() => ProyectoEntity, (proyecto) => proyecto.tareas, {
+    onDelete: "CASCADE",
+  })
   @JoinColumn({ name: "id_proyecto" })
   proyecto: ProyectoEntity;
 
-  @ManyToOne(() => EstadoEntity, (estado) => estado.tarea)
+  @ManyToOne(() => EstadoEntity, (estado) => estado.tarea, {
+    onDelete: "CASCADE",
+  })
   @JoinColumn({ name: "id_estado" })
   estado: EstadoEntity;
 }
